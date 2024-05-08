@@ -244,7 +244,7 @@ class Calculator:
             self.btn_addition,
             self.btn_subtract,
             self.btn_divide,
-            self.btn_divide,
+            self.btn_multiply,
             self.btn_open_parenthesis,
             self.btn_close_parenthesis]:
             num_button.bind("<Button-1>", self.insert_number)
