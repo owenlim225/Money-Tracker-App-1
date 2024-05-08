@@ -231,7 +231,6 @@ def update_amount_label(self):
 # Get Total Balance
 def update_total_balance(self):
         total_balance = db.total_amount()
-        print(total_balance)
         if total_balance is not None:  # Check if total_balance is not None
             self.lbl_balance_amount.config(text="₱{:.2f}".format(total_balance))
         else:

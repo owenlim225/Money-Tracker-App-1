@@ -63,7 +63,7 @@ class CurrencyConverter:
             state="readonly"
         )
         self.to_currency.set(list(self.exchange_rate.keys())[6])
-        self.to_currency.bind("<<ComboboxSelected>>", self.calculate_rate_to)
+        self.to_currency.bind("<<ComboboxSelected>>", self.calculate_rate_from)
 
         # Ent
         self.ent_from_currency = tk.Entry(
@@ -72,14 +72,14 @@ class CurrencyConverter:
             width=26
         )
         self.ent_from_currency.config(validate="key", validatecommand=(self.ent_from_currency.register(lambda char: char.isdigit() or char == "" or char in "."), "%S"))
-
+        self.ent_from_currency.bind("<KeyRelease>", self.calculate_rate_from)
         self.ent_to_currency = tk.Entry(
             child_frame,
             font=("katibeh", 18),
             width=26,
         )
         self.ent_to_currency.config(validate="key", validatecommand=(self.ent_to_currency.register(lambda char: char.isdigit() or char == "" or char in "."), "%S"))
-        
+        self.ent_to_currency.bind("<KeyRelease>", self.calculate_rate_to)
         # Btn
         # Back Btn
         btn_back = tk.Button(
@@ -321,9 +321,9 @@ class CurrencyConverter:
             self.calculate_rate_from()
             
         if isinstance(focused_widget, tk.Entry) and focused_widget == self.ent_to_currency:
-            self.ent_from_currency.config(validate="none")
+            self.ent_to_currency.config(validate="none")
             focused_widget.delete(0, tk.END)
-            self.ent_from_currency.config(validate="key")
+            self.ent_to_currency.config(validate="key")
             self.calculate_rate_to()
             
     def delete(self, event=None): 
