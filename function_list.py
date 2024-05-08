@@ -220,25 +220,22 @@ def update_amount_label(self):
                 total_income += amount
 
         # Update the expenses and income labels with the calculated totals
-        self.lbl_expenses_amount.config(text="₱{:.2f}".format(total_expenses))
-        self.lbl_income_amount.config(text="₱{:.2f}".format(total_income))
+        self.lbl_expenses_amount.config(text="-₱{:.2f}".format(total_expenses))
+        self.lbl_income_amount.config(text="+₱{:.2f}".format(total_income))
         self.update_total_balance()
 
     else:
-        self.lbl_expenses_amount.config(text="₱{:.2f}".format(total_expenses))
-        self.lbl_income_amount.config(text="₱{:.2f}".format(total_income))
+        self.lbl_expenses_amount.config(text="-₱{:.2f}".format(total_expenses))
+        self.lbl_income_amount.config(text="+₱{:.2f}".format(total_income))
 
-# Update Total Balance Displayed
+# Get Total Balance
 def update_total_balance(self):
-    total_balance = db.total_amount()
-    if total_balance is not None:  # Check if total_balance is not None
-        self.lbl_amount_amount.config(text="₱{:.2f}".format(total_balance))
-    else:
-        self.lbl_amount_amount.config(text="₱0.00")
-
-
-
-
+        total_balance = db.total_amount()
+        print(total_balance)
+        if total_balance is not None:  # Check if total_balance is not None
+            self.lbl_balance_amount.config(text="₱{:.2f}".format(total_balance))
+        else:
+            self.lbl_balance_amount.config(text="₱0.00")
 
 
 def add_to_db(self):
@@ -301,21 +298,7 @@ def remove_data_from_db(self):
             self.update_total_balance()
     else:
         messagebox.showerror("Error", "Please fill in all fields")   
-                        
-# Update Entry Window Enable/Disable Displayed Widgets
-def update_window(self):
-    self.remove_frame.place_forget()
-    self.update_frame.place(x=10, y=10)
-    
-# Load datas to update in Update entry window
-def load_data_to_ent_in_update_window(self):
-    pass
-
-# Remove Entry Window Enable/Disable Displayed Widgets
-def remove_window(self):
-    self.update_frame.place_forget()
-    self.remove_frame.place(x=10, y=10)
-    
+                     
 def clear_data(self):
     result = messagebox.askyesno("Clear Data", "Do you want to Delete All Data? Data cannot be recovered after deletion")
     
@@ -327,21 +310,16 @@ def clear_data(self):
         messagebox.showinfo("Success", "Successfully Cleared Data")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Update Entry Window Enable/Disable Displayed Widgets
+def update_window(self):
+    self.remove_frame.place_forget()
+    self.update_frame.place(x=10, y=10)
+    
+    
+# Remove Entry Window Enable/Disable Displayed Widgets
+def remove_window(self):
+    self.update_frame.place_forget()
+    self.remove_frame.place(x=10, y=10)
 
 
 
@@ -371,7 +349,7 @@ def edit_entries_window(self):
         cursor="hand2",
         command=self.update_window
         )
-
+    
     btn_remove = tk.Button(
         frame1,
         text="Remove",
@@ -393,9 +371,36 @@ def edit_entries_window(self):
         bg="#102C57",
         fg="#fff"
         )
+    
+    lbl_update_name = tk.Label(
+        self.update_frame,
+        text="Name:",
+        font=("katibeh", 18),
+        bg="#102C57",
+        fg="#fff"
+        )
+    
+    lbl_update_category = tk.Label(
+        self.update_frame,
+        text="Category:",
+        font=("katibeh", 18),
+        bg="#102C57",
+        fg="#fff"
+        )
+    
+    lbl_update_amount = tk.Label(
+        self.update_frame,
+        text="Amount:",
+        font=("katibeh", 18),
+        bg="#102C57",
+        fg="#fff"
+        )
 
     # Label Update Frame pos
     lbl_update_id.place(x=50, y=20)
+    lbl_update_name.place(x=50, y=50)
+    lbl_update_category.place(x=50, y=80)
+    lbl_update_amount.place(x=50, y=110)
 
     # Ent Update Frame
     self.ent_update_id = tk.Entry(
@@ -403,12 +408,12 @@ def edit_entries_window(self):
         font=("katibeh", 14),
         width=23
         )
-
+    
     self.ent_update_name = tk.Entry(
         self.update_frame,
         font=("katibeh", 14)
         )
-
+    
     self.ent_update_id.config(validate="key", validatecommand=(self.ent_update_id.register(lambda char: char.isdigit() or char == ""), "%S")) 
     self.ent_update_name.config(validate="key", validatecommand=(self.ent_update_id.register(lambda char: char.isalpha() or char == ""), "%S"))
 
@@ -420,7 +425,7 @@ def edit_entries_window(self):
         width=15,
         state="readonly"
         )
-
+    
     self.ent_update_category.set("Expense")
     self.ent_update_category.config(validate="key", validatecommand=(self.ent_update_category.register(lambda char: char.isdigit() and char.isalpha() or char == ""), "%S"))
 
@@ -429,7 +434,7 @@ def edit_entries_window(self):
         font=("katibeh", 14),
         width=18
         )
-
+    
     self.ent_update_amount.config(validate="key", validatecommand=(self.ent_update_amount.register(lambda char: char.isdigit() or char == ""), "%S"))
 
     # Ent Update Frame pos
@@ -447,7 +452,7 @@ def edit_entries_window(self):
         cursor="hand2", 
         command=self.update_data_to_db
         )
-
+    
     btn_update_cancel_frame = tk.Button(
         self.update_frame,
         text="Cancel",
@@ -480,7 +485,7 @@ def edit_entries_window(self):
         font=("katibeh", 14),
         width=18
         )
-
+    
     self.ent_remove_id.config(validate="key", validatecommand=(self.ent_remove_id.register(lambda char: char.isdigit() or char == ""), "%S"))
 
     # Ent Remove Frame pos
@@ -495,7 +500,7 @@ def edit_entries_window(self):
         cursor="hand2",
         command=self.remove_data_from_db
         )
-
+    
     btn_remove_cancel_frame = tk.Button(
         self.remove_frame,
         text="Cancel",
@@ -508,3 +513,45 @@ def edit_entries_window(self):
     # Btn Remove Frame pos
     btn_remove_frame.place(x=120, y=170)
     btn_remove_cancel_frame.place(x=130, y=220)
+
+# Update Data to Database
+def update_data_to_db(self):
+    current_date = self.current_date.get()
+    id = self.ent_update_id.get()
+    name = self.ent_update_name.get()
+    category = self.ent_update_category.get()
+    amount = self.ent_update_amount.get()
+    
+    if id and name and category and amount:
+        try:
+            amount = float(amount)
+            id_not_exist = db.update_data_in_table(id, name, category, amount, current_date)
+            
+            if id_not_exist:
+                messagebox.showerror("Error", "Oopss, ID Does not Exist in Current Date")
+            else:
+                self.edit_entries_win.destroy()
+                self.load_entries()
+                self.update_total_balance()
+        except ValueError:
+            messagebox.showerror("Error", "Please enter a valid values")
+    else:
+        messagebox.showerror("Error", "Please fill in all fields") 
+            
+def remove_data_from_db(self):
+        current_date = self.current_date.get()
+        id = self.ent_remove_id.get()
+        
+        id_not_exist = db.delete_data_in_table(id, current_date)
+        
+        if id:
+            if id_not_exist:
+                messagebox.showerror("Error", "Oops, ID Does Not Exist In Current Date")
+            else:
+                self.edit_entries_win.destroy()
+                self.load_entries()
+                self.update_total_balance()
+        else:
+            messagebox.showerror("Error", "Please fill in all fields") 
+    
+ 

@@ -13,6 +13,7 @@ class Calculator:
         self.win.protocol("WM_DELETE_WINDOW", self.back_to_main)
 
         self.create_widgets()
+        self.bind_number_buttons()
         
     def create_widgets(self):
         # Frame
@@ -32,7 +33,7 @@ class Calculator:
         
         # Btn
         # Back Button
-        btn_back = tk.Button(
+        self.btn_back = tk.Button(
             child_frame,
             text="<",
             font=("katibeh", 14, "bold"),
@@ -44,23 +45,21 @@ class Calculator:
         )
         
         # Btn Row 1
-        btn_open_parenthesis = tk.Button(
+        self.btn_open_parenthesis = tk.Button(
             child_frame,
             text="(",
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, "(")
         )
         
-        btn_close_parenthesis = tk.Button(
+        self.btn_close_parenthesis = tk.Button(
             child_frame,
             text=")",
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, ")")
         )
         
-        btn_ac = tk.Button(
+        self.btn_ac = tk.Button(
             child_frame,
             text="AC",
             font=("katibeh", 18),
@@ -68,7 +67,7 @@ class Calculator:
             command=self.clear
         )
         
-        btn_del = tk.Button(
+        self.btn_del = tk.Button(
             child_frame,
             text="Del",
             font=("katibeh", 18),
@@ -77,114 +76,101 @@ class Calculator:
         )
         
         # Btn Row 2       
-        btn_7 = tk.Button(
+        self.btn_7 = tk.Button(
             child_frame,
             text="7",
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, "7")
         )
         
-        btn_8 = tk.Button(
+        self.btn_8 = tk.Button(
             child_frame,
             text="8"  ,
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, "8")
         )
         
-        btn_9 = tk.Button(
+        self.btn_9 = tk.Button(
             child_frame,
             text=9,
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, "9")
         )
         
-        btn_divide = tk.Button(
+        self.btn_divide = tk.Button(
             child_frame,
             text="÷",
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, "÷")
         )
         
         # Btn Row 3
-        btn_4 = tk.Button(
+        self.btn_4 = tk.Button(
             child_frame,
             text="4",
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, "4")
         )
         
-        btn_5 = tk.Button(
+        self.btn_5 = tk.Button(
             child_frame,
             text="5",
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, "5")
         )
         
-        btn_6 = tk.Button(
+        self.btn_6 = tk.Button(
             child_frame,
             text="6",
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, "6")
         )
         
-        btn_multiply = tk.Button(
+        self.btn_multiply = tk.Button(
             child_frame,
             text="x",
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, "x")
         )
         
         # Btn Row 4
-        btn_1 = tk.Button(
+        self.btn_1 = tk.Button(
             child_frame,
             text="1",
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, "1")
         )
         
-        btn_2 = tk.Button(
+        self.btn_2 = tk.Button(
             child_frame,
             text="2",
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, "2")
         )
         
-        btn_3 = tk.Button(
+        self.btn_3 = tk.Button(
             child_frame,
             text="3",
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, "3")
         )
         
-        btn_subtract = tk.Button(
+        self.btn_subtract = tk.Button(
             child_frame,
             text="-",
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, "-")
         )
         
         # Btn Row 5
-        btn_0 = tk.Button(
+        self.btn_0 = tk.Button(
             child_frame,
             text="0",
             font=("katibeh", 18),
             width=12,
-            command=lambda: self.ent_num_field.insert(tk.END, "0")
         )        
         
-        btn_equal = tk.Button(
+        self.btn_equal = tk.Button(
             child_frame,
             text="=",
             font=("katibeh", 18),
@@ -193,12 +179,11 @@ class Calculator:
             command=self.calculate
         )
         
-        btn_addition = tk.Button(
+        self.btn_addition = tk.Button(
             child_frame,
             text="+",
             font=("katibeh", 18),
             width=5,
-            command=lambda: self.ent_num_field.insert(tk.END, "+")
         )
         
         # Widgets Pos
@@ -211,38 +196,68 @@ class Calculator:
         
         # Btn pos
         # Back Button
-        btn_back.place(x=10, y=5)
+        self.btn_back.place(x=10, y=5)
         
         # Btn Row 1
-        btn_open_parenthesis.place(x=40, y=120)
-        btn_close_parenthesis.place(x=140, y=120)
-        btn_ac.place(x=240, y=120)
-        btn_del.place(x=340, y=120)
+        self.btn_open_parenthesis.place(x=40, y=120)
+        self.btn_close_parenthesis.place(x=140, y=120)
+        self.btn_ac.place(x=240, y=120)
+        self.btn_del.place(x=340, y=120)
         
         
         # Btn Row 2
-        btn_7.place(x=40, y=190)
-        btn_8.place(x=140, y=190)
-        btn_9.place(x=240, y=190)
-        btn_divide.place(x=340, y=190)
+        self.btn_7.place(x=40, y=190)
+        self.btn_8.place(x=140, y=190)
+        self.btn_9.place(x=240, y=190)
+        self.btn_divide.place(x=340, y=190)
         
         # Btn Row 3
-        btn_4.place(x=40, y=260)
-        btn_5.place(x=140, y=260)
-        btn_6.place(x=240, y=260)
-        btn_multiply.place(x=340, y=260)
+        self.btn_4.place(x=40, y=260)
+        self.btn_5.place(x=140, y=260)
+        self.btn_6.place(x=240, y=260)
+        self.btn_multiply.place(x=340, y=260)
         
         # Btn Row 4
-        btn_1.place(x=40, y=330)
-        btn_2.place(x=140, y=330)
-        btn_3.place(x=240, y=330)
-        btn_subtract.place(x=340, y=330)
+        self.btn_1.place(x=40, y=330)
+        self.btn_2.place(x=140, y=330)
+        self.btn_3.place(x=240, y=330)
+        self.btn_subtract.place(x=340, y=330)
         
         # Btn Row 5
-        btn_0.place(x=40, y=400)
-        btn_equal.place(x=240, y=400)
-        btn_addition.place(x=340, y=400)
+        self.btn_0.place(x=40, y=400)
+        self.btn_equal.place(x=240, y=400)
+        self.btn_addition.place(x=340, y=400)
     
+    def bind_number_buttons(self):
+        # Bind number buttons to insert corresponding numbers
+        for num_button in [
+            self.btn_0,
+            self.btn_1,
+            self.btn_2,
+            self.btn_3,
+            self.btn_4,
+            self.btn_5,
+            self.btn_6,
+            self.btn_7,
+            self.btn_8,
+            self.btn_9,
+            self.btn_addition,
+            self.btn_subtract,
+            self.btn_divide,
+            self.btn_divide,
+            self.btn_open_parenthesis,
+            self.btn_close_parenthesis]:
+            num_button.bind("<Button-1>", self.insert_number)
+    
+    def insert_number(self, event):
+        # Get the currently focused entry
+        focused_widget = self.app.focus_get()
+
+        # If it's an entry field, insert the corresponding number
+        if isinstance(focused_widget, tk.Entry):
+            cursor_pos = focused_widget.index(tk.INSERT)  # Get the cursor position
+            focused_widget.insert(cursor_pos, event.widget["text"])  # Insert the number at the cursor position           
+                
     # Calculator Function
     def clear(self):
         # Temporarily disable validation
@@ -254,12 +269,20 @@ class Calculator:
     
     
     def delete(self):
-        expression = self.ent_num_field.get()
-        back = expression[:-1]
-        self.clear()
-        self.ent_num_field.config(validate="none")
-        self.ent_num_field.insert(0, back)
-        self.ent_num_field.config(validate="key", validatecommand=(self.ent_num_field.register(lambda char: char.isdigit() or char in "-+÷%x()" or char == ""), "%S")) 
+        focused_widget = self.app.focus_get()
+        
+        if isinstance(focused_widget, tk.Entry) and focused_widget == self.ent_num_field:
+            cursor_pos = focused_widget.index(tk.INSERT)  # Get the cursor position
+            if cursor_pos > 0:
+                focused_widget.delete(cursor_pos - 1)  # Delete one character before the cursor position
+
+        
+        # expression = self.ent_num_field.get()
+        # back = expression[:-1]
+        # self.clear()
+        # self.ent_num_field.config(validate="none")
+        # self.ent_num_field.insert(0, back)
+        # self.ent_num_field.config(validate="key", validatecommand=(self.ent_num_field.register(lambda char: char.isdigit() or char in "-+÷%x()" or char == ""), "%S")) 
         
     def calculate(self):
         try:

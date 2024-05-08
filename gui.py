@@ -16,8 +16,11 @@ from idlelib.tooltip import Hovertip
 
 
 # Seperate file for the app functions
-from function_list import add_button, add_entry_win, add_to_db, previous_date, next_date, edit_entries_window, remove_data_from_db
-from function_list import load_entries, update_amount_label, clear_data, update_window, remove_window, update_data_to_db
+# from function_list import add_button, add_entry_win, add_to_db, previous_date, next_date, edit_entries_window, remove_data_from_db
+# from function_list import load_entries, update_amount_label, clear_data, update_window, remove_window, update_data_to_db
+
+import function_list as function
+
 from currency_conv import CurrencyConverter
 from calc import Calculator
 
@@ -394,9 +397,9 @@ class MyApp(tk.Tk):
                                         command=lambda: self.menu_frame.place_forget())
         btn_sidebar_menu_back.place(x=20, y=500)
 
-        # Bindings to close menu sidebar after off focus
+        # Bindings to close menu sidebar   
         self.bind("<Button-1>", self.close_menu)
-
+    
     # Function to toggle menu visibility
     def toggle_menu(self):
         if self.menu_frame:
@@ -409,9 +412,11 @@ class MyApp(tk.Tk):
     def close_menu(self, event):
         if self.menu_frame:
             x, y = event.x_root, event.y_root
-            if not (0 <= x <= 200 and 0 <= y <= self.winfo_screenheight()):
+            menu_x, menu_y, menu_width, menu_height = self.menu_frame.winfo_rootx(), self.menu_frame.winfo_rooty(), self.menu_frame.winfo_width(), self.menu_frame.winfo_height()
+            if not (menu_x <= x <= menu_x + menu_width and menu_y <= y <= menu_y + menu_height):
                 self.menu_frame.place_forget()
                 self.menu_frame = None
+
 
 
 
@@ -529,21 +534,10 @@ Christian Jude N. Villaber
         # Display the message box centered on the screen
         messagebox.showinfo("About", about_message)
 
-    def clear_data(self):
-        pass
-
-
-    
-    def update_total_balance(self):
-        pass
-    
-    
-    
-    
     
     # Wrapper functions to call imported functions from function_list.py
-    def add_button(self):
-        add_button(self)
+    # def add_button(self):
+    #     function.add_button(self)
 
     def open_calculator(self):
         Calculator(self)    
@@ -552,38 +546,48 @@ Christian Jude N. Villaber
         CurrencyConverter(self)
         
     def add_entry_win(self):
-        add_entry_win(self)
+        function.add_entry_win(self)
         
     def add_to_db(self):
-        add_to_db(self)        
+        function.add_to_db(self)        
     
     def next_date(self):
-        next_date(self)        
+        function.next_date(self)        
     
     def previous_date(self):
-        previous_date(self)  
+        function.previous_date(self) 
     
     def edit_entries_window(self):
-        edit_entries_window(self)  
+        function.edit_entries_window(self)
     
-    def load_entries(self):
-        load_entries(self) 
+    def update_data_to_db(self):
+        function.update_data_to_db(self)
         
-    def update_amount_label(self):
-        update_amount_label(self)         
-        
-    def clear_data(self):
-        clear_data(self)      
-        
+    def remove_data_from_db(self):
+        function.remove_data_from_db(self)
         
     def remove_window(self):
-        remove_window(self)  
+        function.remove_window(self)  
         
     def update_window(self):
-        update_window(self)  
-            
-    def update_data_to_db(self):
-        update_data_to_db(self)
+        function.update_window(self) 
+        
+    def update_amount_label(self):
+        function.update_amount_label(self)
+        
+    def update_total_balance(self):
+        function.update_total_balance(self)   
+        
+    def load_entries(self):
+        function.load_entries(self)  
+        
+    def clear_data(self):
+        function.clear_data(self)      
+        
+        
+     
+    
+    
    
     
     
