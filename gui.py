@@ -534,21 +534,10 @@ Christian Jude N. Villaber
         # Display the message box centered on the screen
         messagebox.showinfo("About", about_message)
 
-    def clear_data(self):
-        pass
-
-
-    
-    def update_total_balance(self):
-        pass
-    
-    
-    
-    
     
     # Wrapper functions to call imported functions from function_list.py
-    def add_button(self):
-        function.add_button(self)
+    # def add_button(self):
+    #     function.add_button(self)
 
     def open_calculator(self):
         Calculator(self)    
@@ -566,29 +555,39 @@ Christian Jude N. Villaber
         function.next_date(self)        
     
     def previous_date(self):
-        function.previous_date(self)  
+        function.previous_date(self) 
     
     def edit_entries_window(self):
-        function.edit_entries_window(self)  
+        function.edit_entries_window(self)
     
-    def load_entries(self):
-        function.load_entries(self) 
+    def update_data_to_db(self):
+        function.update_data_to_db(self)
         
-    def update_amount_label(self):
-        function.update_amount_label(self)         
-        
-    def clear_data(self):
-        function.clear_data(self)      
-        
+    def remove_data_from_db(self):
+        function.remove_data_from_db(self)
         
     def remove_window(self):
         function.remove_window(self)  
         
     def update_window(self):
-        function.update_window(self)  
-            
-    def update_data_to_db(self):
-        function.update_data_to_db(self)
+        function.update_window(self) 
+        
+    def update_amount_label(self):
+        function.update_amount_label(self)
+        
+    def update_total_balance(self):
+        function.update_total_balance(self)   
+        
+    def load_entries(self):
+        function.load_entries(self)  
+        
+    def clear_data(self):
+        function.clear_data(self)      
+        
+        
+     
+    
+    
    
     
     
